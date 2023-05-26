@@ -16,6 +16,6 @@ Below are a list of resources to support this system, please refer to them for m
  TODO
 
 ## Resources
- - [Events]("packages/events/README.md") - Defines the events used in the project and provides patch functions for transforming events
+ - [Events](packages/events/README.md) - Defines the events used in the project and provides patch functions for transforming events
  - [Rules] - Defines the business rules to be applied within code logic
 TODO
