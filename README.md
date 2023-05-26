@@ -10,7 +10,9 @@ Below are a list of resources to support this system, please refer to them for m
 
 ## Structure
  - `./packages` - deoployable resources
+ TODO
  - `./packages/resource/docs` - resource specific documentation
+ TODO
  - `./docs` - project wide documentation, each resource will have it's own docs
 
 ## Resources
