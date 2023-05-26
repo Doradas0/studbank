@@ -10,12 +10,12 @@ Below are a list of resources to support this system, please refer to them for m
 
 ## Structure
  - `./packages` - deoployable resources
- TODO
  - `./packages/resource/docs` - resource specific documentation
  TODO
  - `./docs` - project wide documentation, each resource will have it's own docs
+ TODO
 
 ## Resources
  - [Events]("packages/events/README.md") - Defines the events used in the project and provides patch functions for transforming events
-TODO
  - [Rules] - Defines the business rules to be applied within code logic
+TODO
