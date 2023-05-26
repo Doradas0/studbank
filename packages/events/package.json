@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "types": "npm run clean && tsc && node ./build/convertSchemaToTypes.js",
+    "clean": "rm -rf ./types/* ./build"
+  },
   "devDependencies": {
     "typescript": "^5.0.4",
     "@tsconfig/node18": "^2.0.1",

@@ -1,12 +1,19 @@
 {
+  "include": ["./scripts"],
   "compilerOptions": {
-    "target": "ES2020",
+    "declaration": false,
+    "lib": ["es2015"],
     "module": "commonjs",
-    "lib": ["ES2020"],
-    "strict": true,
-    "resolveJsonModule": true
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./build",
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es2016",
+    "esModuleInterop": true
   }
 }
-
-    
-
