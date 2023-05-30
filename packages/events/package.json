@@ -1,7 +1,5 @@
 {
   "scripts": {
-    "types": "npm run clean && tsc && node ./build/convertSchemaToTypes.js",
-    "clean": "rm -rf ./types/* ./build",
     "test": "jest"
   },
   "devDependencies": {
