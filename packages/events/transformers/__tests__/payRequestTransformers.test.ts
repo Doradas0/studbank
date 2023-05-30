@@ -16,7 +16,7 @@ describe("payRequestTransformers", () => {
 
     const result = addLegoPaymentId(data);
 
-    expect(result.doc).toEqual({
+    expect(result?.doc).toEqual({
       amount: {
         value: "10.00",
         currency: "EUR",
@@ -25,7 +25,7 @@ describe("payRequestTransformers", () => {
       legoPaymentId: expect.any(String),
     });
 
-    validation = Lego_Pay_Item.safeParse(result.doc);
+    validation = Lego_Pay_Item.safeParse(result?.doc);
     expect(validation.success).toBe(true);
   })
 });
