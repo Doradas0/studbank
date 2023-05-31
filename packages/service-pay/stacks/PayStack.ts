@@ -3,11 +3,13 @@ import {
   AuthorizationType,
   LambdaIntegration,
   RestApi,
+  JsonSchema,
 } from "aws-cdk-lib/aws-apigateway";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import path from "path";
-import {Architecture, Runtime} from "aws-cdk-lib/aws-lambda";
+import { Architecture, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Lego_Pay_Request_Schema } from "../../events/schemas/Pay";
 
 const { STAGE = "test" } = process.env;
 
@@ -47,6 +49,16 @@ export class PayStack extends Stack {
       },
     });
 
-    api.root.addMethod("POST", new LambdaIntegration(payFunction));
+    const Lego_Pay_Request_Model = api.addModel("PayRequestModel", {
+      contentType: "application/json",
+      modelName: "PayRequestModel",
+      schema: Lego_Pay_Request_Schema as JsonSchema,
+    });
+
+    api.root.addMethod("POST", new LambdaIntegration(payFunction), {
+      requestModels: {
+        "application/json": Lego_Pay_Request_Model,
+      },
+    });
   }
 }
