@@ -6,9 +6,11 @@ export const Lego_Pay_Request = z
     amount: z.object({
       value: z.string(),
       currency: z.string(),
-    }).required(),
+    }),
     paymentMethod: z.string(),
-  }).required();
+  })
+  .strict()
+  .describe("Request parameters for Lego /pay endpoint");
 export type Lego_Pay_Request = z.infer<typeof Lego_Pay_Request>;
 export const Lego_Pay_Request_Schema = zodToJsonSchema(Lego_Pay_Request);
 
