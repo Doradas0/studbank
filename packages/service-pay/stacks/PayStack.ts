@@ -55,10 +55,19 @@ export class PayStack extends Stack {
       schema: Lego_Pay_Request_Schema as JsonSchema,
     });
 
+    const payRequestValidator = api.addRequestValidator("PayRequestValidator", {
+      requestValidatorName: "PayRequestValidator",
+      validateRequestBody: true,
+      validateRequestParameters: false,
+    });
+
     api.root.addMethod("POST", new LambdaIntegration(payFunction), {
       requestModels: {
         "application/json": Lego_Pay_Request_Model,
       },
+      requestValidator: payRequestValidator,
     });
+
+
   }
 }
