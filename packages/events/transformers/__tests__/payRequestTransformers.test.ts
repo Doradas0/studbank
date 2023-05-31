@@ -1,5 +1,10 @@
 import { addLegoPaymentId } from "../payRequestTransformers";
-import { Lego_Pay_Request, Lego_Pay_Item } from "../../schemas/Payment";
+import {
+  Lego_Pay_Request,
+  Lego_Pay_Request_Schema,
+  Lego_Pay_Item,
+  Lego_Pay_Item_Schema,
+} from "../../schemas/Payment";
 
 describe("payRequestTransformers", () => {
   it("should add legoPaymentId", () => {
@@ -27,5 +32,10 @@ describe("payRequestTransformers", () => {
 
     validation = Lego_Pay_Item.safeParse(result?.doc);
     expect(validation.success).toBe(true);
-  })
+  });
+});
+
+it("should have json schemas", () => {
+  console.log(Lego_Pay_Request_Schema);
+  console.log(Lego_Pay_Item_Schema);
 });
