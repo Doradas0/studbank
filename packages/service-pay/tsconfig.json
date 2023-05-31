@@ -1,9 +1,10 @@
 {
-  "exclude": ["cdk.out", "node_modules", "src/__tests__", "stacks/__tests__"],
+  "exclude": ["cdk.out", "node_modules" ],
   "include": ["stacks", "src"],
   "extends": "@tsconfig/node18",
   "compilerOptions": {
+    "strict": true,
     "resolveJsonModule": true,
-    "lib": ["dom"]
+    "lib": ["dom", "ESNext"]
   }
 }

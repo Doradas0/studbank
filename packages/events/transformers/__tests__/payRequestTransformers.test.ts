@@ -4,7 +4,7 @@ import {
   Lego_Pay_Request_Schema,
   Lego_Pay_Item,
   Lego_Pay_Item_Schema,
-} from "../../schemas/Payment";
+} from "../../schemas/Pay";
 
 describe("payRequestTransformers", () => {
   it("should add legoPaymentId", () => {
@@ -21,7 +21,7 @@ describe("payRequestTransformers", () => {
 
     const result = addLegoPaymentId(data);
 
-    expect(result?.doc).toEqual({
+    expect(result).toEqual({
       amount: {
         value: "10.00",
         currency: "EUR",
@@ -30,7 +30,7 @@ describe("payRequestTransformers", () => {
       legoPaymentId: expect.any(String),
     });
 
-    validation = Lego_Pay_Item.safeParse(result?.doc);
+    validation = Lego_Pay_Item.safeParse(result);
     expect(validation.success).toBe(true);
   });
 });

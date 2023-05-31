@@ -1,5 +1,5 @@
 {
-  "include": ["./scripts"],
+  "include": ["./schemas", "./transformers"],
   "extends": "@tsconfig/node18",
   "compilerOptions": {
     "strict": true,

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "deploy": "cdk deploy --outputs-file outputs.json",
+    "deploy": "cdk deploy --profile main --outputs-file outputs.json",
     "remove": "cdk destroy",
     "synth": "cdk synth --quiet",
     "test": "STAGE=test jest",
@@ -9,8 +9,9 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "2.0.1",
-    "@types/jest": "27.5.0",
-    "@types/node": "20.2.3",
+    "@types/aws-lambda": "8.10.109",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^20.2.3",
     "aws-cdk": "2.80.0",
     "esbuild": "0.15.18",
     "jest": "29.5.0",
