@@ -49,25 +49,27 @@ export class PayStack extends Stack {
       },
     });
 
+    //Create api model based on json schema from zod object
     const Lego_Pay_Request_Model = api.addModel("PayRequestModel", {
       contentType: "application/json",
       modelName: "PayRequestModel",
+      //Setting type as JsonSchema is dangerous, but required due to cdk api gateway type restrictions
       schema: Lego_Pay_Request_Schema as JsonSchema,
     });
 
+    //Specify that request body should be validated against model schema
     const payRequestValidator = api.addRequestValidator("PayRequestValidator", {
       requestValidatorName: "PayRequestValidator",
       validateRequestBody: true,
       validateRequestParameters: false,
     });
 
+    //Define api resource method
     api.root.addMethod("POST", new LambdaIntegration(payFunction), {
       requestModels: {
         "application/json": Lego_Pay_Request_Model,
       },
       requestValidator: payRequestValidator,
     });
-
-
   }
 }
