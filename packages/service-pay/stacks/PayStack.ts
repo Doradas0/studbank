@@ -4,6 +4,7 @@ import {
   LambdaIntegration,
   RestApi,
   JsonSchema,
+  ResponseType,
 } from "aws-cdk-lib/aws-apigateway";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
@@ -62,6 +63,20 @@ export class PayStack extends Stack {
       requestValidatorName: "PayRequestValidator",
       validateRequestBody: true,
       validateRequestParameters: false,
+    });
+
+    api.addGatewayResponse("BadRequestResponse", {
+      type: ResponseType.BAD_REQUEST_BODY,
+      statusCode: "400",
+      responseHeaders: {
+        "Content-Type": "'application/json'",
+      },
+      templates: {
+        "application/json": JSON.stringify({
+          message: "$context.error.messageString",
+          errors: "$context.error.validationErrorString",
+        }),
+      },
     });
 
     //Define api resource method
