@@ -5,6 +5,7 @@ import {
   RestApi,
   JsonSchema,
   ResponseType,
+  MethodLoggingLevel,
 } from "aws-cdk-lib/aws-apigateway";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
@@ -43,6 +44,7 @@ export class PayStack extends Stack {
       deployOptions: {
         tracingEnabled: true,
         stageName: `${STAGE}`,
+        loggingLevel: MethodLoggingLevel.INFO,
       },
       defaultMethodOptions: {
         //TODO add authorization
