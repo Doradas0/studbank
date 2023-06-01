@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
+//Schema definition & validation object for runtime checks
 export const Lego_Pay_Request = z
   .object({
     amount: z.object({
@@ -8,10 +9,15 @@ export const Lego_Pay_Request = z
       currency: z.string(),
     }),
     paymentMethod: z.string(),
+    country: z.string().optional(),
   })
+  //strict() is used to ensure that no extra fields are allowed
   .strict()
+  //description is used to generate documentation in json-schema
   .describe("Request parameters for Lego /pay endpoint");
+//Type definition for IDE support
 export type Lego_Pay_Request = z.infer<typeof Lego_Pay_Request>;
+//JSON Schema definition for documentation and api models
 export const Lego_Pay_Request_Schema = zodToJsonSchema(Lego_Pay_Request);
 
 const Lego_PaymentId = z.string();
