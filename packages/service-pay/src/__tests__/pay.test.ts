@@ -1,8 +1,8 @@
 import { handler } from "../pay";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { Lego_Pay_Request, Lego_Pay_Item } from "../../../events/schemas/Pay";
+import { TLego_Pay_Request } from "../../../events/schemas/Pay";
 
-const body: Lego_Pay_Request = {
+const body: TLego_Pay_Request = {
   amount: {
     currency: "USD",
     value: "100",
@@ -62,7 +62,10 @@ describe("Pay", () => {
     expect(result.statusCode).toEqual(200);
   });
   it("should return 400", async () => {
-    const result = (await handler({ ...event, body: null })) as APIGatewayProxyResult;
+    const result = (await handler({
+      ...event,
+      body: null,
+    })) as APIGatewayProxyResult;
     expect(result.statusCode).toEqual(400);
   });
 });
