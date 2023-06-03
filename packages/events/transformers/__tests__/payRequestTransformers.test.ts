@@ -1,6 +1,6 @@
 import { addLegoPaymentId } from "../payRequestTransformers";
 import {
-  Lego_Pay_Request,
+  TLego_Pay_Request,
   Lego_Pay_Request_Schema,
   Lego_Pay_Item,
   Lego_Pay_Item_Schema,
@@ -8,7 +8,7 @@ import {
 
 describe("payRequestTransformers", () => {
   it("should add legoPaymentId", () => {
-    const data: Lego_Pay_Request = {
+    const data: TLego_Pay_Request = {
       amount: {
         value: "10.00",
         currency: "EUR",
