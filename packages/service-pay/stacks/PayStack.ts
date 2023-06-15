@@ -1,11 +1,10 @@
-import { App, Duration, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { App, Duration, Fn, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import {
-  AuthorizationType,
   LambdaIntegration,
   RestApi,
   JsonSchema,
-  ResponseType,
-  MethodLoggingLevel,
+  Model,
+  RequestValidator,
 } from "aws-cdk-lib/aws-apigateway";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
@@ -38,22 +37,16 @@ export class PayStack extends Stack {
 
     logGroup.grantWrite(payFunction);
 
-    const api = new RestApi(this, `ServicePayApi-${STAGE}`, {
-      restApiName: `service-pay-${STAGE}`,
-      deploy: true,
-      deployOptions: {
-        tracingEnabled: true,
-        stageName: `${STAGE}`,
-        loggingLevel: MethodLoggingLevel.INFO,
-      },
-      defaultMethodOptions: {
-        //TODO add authorization
-        authorizationType: AuthorizationType.NONE,
-      },
+    const apiId = Fn.importValue(`StudBank-Api-id-${STAGE}`);
+    const apiRootResourceId = Fn.importValue(`StudBank-Api-RootResourceId-${STAGE}`);
+    const api = RestApi.fromRestApiAttributes(this, "Api", {
+      restApiId: apiId,
+      rootResourceId: apiRootResourceId,
     });
 
     //Create api model based on json schema from zod object
-    const Lego_Pay_Request_Model = api.addModel("PayRequestModel", {
+    const Lego_Pay_Request_Model = new Model(this, "Lego_Pay_Request_Model", {
+      restApi: api,
       contentType: "application/json",
       modelName: "PayRequestModel",
       //Setting type as JsonSchema is dangerous, but required due to cdk api gateway type restrictions
@@ -61,24 +54,11 @@ export class PayStack extends Stack {
     });
 
     //Specify that request body should be validated against model schema
-    const payRequestValidator = api.addRequestValidator("PayRequestValidator", {
+    const payRequestValidator = new RequestValidator(this, "PayRequestValidator", {
+      restApi: api,
       requestValidatorName: "PayRequestValidator",
       validateRequestBody: true,
       validateRequestParameters: false,
-    });
-
-    api.addGatewayResponse("BadRequestResponse", {
-      type: ResponseType.BAD_REQUEST_BODY,
-      statusCode: "400",
-      responseHeaders: {
-        "Content-Type": "'application/json'",
-      },
-      templates: {
-        "application/json": JSON.stringify({
-          message: "$context.error.messageString",
-          errors: "$context.error.validationErrorString",
-        }),
-      },
     });
 
     //Define api resource method

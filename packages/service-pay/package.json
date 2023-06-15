@@ -1,8 +1,8 @@
 {
   "scripts": {
     "deploy": "cdk deploy --profile main --outputs-file outputs.json",
-    "remove": "cdk destroy",
-    "synth": "cdk synth --quiet",
+    "remove": "cdk destroy --profile main",
+    "synth": "cdk synth --profile main --quiet",
     "test": "STAGE=test jest",
     "test:infra": "STAGE=test jest stacks/",
     "test:unit": "jest src/"
