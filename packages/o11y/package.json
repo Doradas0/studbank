@@ -2,6 +2,11 @@
   "name": "o11y",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "release": "npm run release:init && npm run release:dashboard",
+    "release:init": "bun index.ts",
+    "release:dashboard": "./generateDashboard.sh"
+  },
   "devDependencies": {
     "bun-types": "latest"
   },
